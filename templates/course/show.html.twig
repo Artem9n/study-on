@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Курс {{ course.name }}{% endblock %}
+
+{% block body %}
+    <h1>{{ course.name }}</h1>
+
+    <p>{{ course.description }}</p>
+
+    <h2><a href="{{ path('app_lesson_index') }}">Уроки</a></h2>
+
+    {% if lessons is not empty %}
+        <ul>
+            {% for lesson in lessons %}
+                <li><a href="{{ path('app_lesson_show', {'id': lesson.id}) }}">{{ lesson.name }}</a></li>
+            {% else %}
+                <div>Нет уроков</div>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div>Нет уроков</div>
+    {% endif %}
+
+    <p>
+        <a href="{{ path('app_course_index') }}">Вернуться к списку</a>
+        <a href="{{ path('app_course_edit', {'id': course.id}) }}">Редактировать</a>
+        <a href="{{ path('app_lesson_new', {'course_id': course.id}) }}">Добавить урок</a>
+        {{ include('course/_delete_form.html.twig') }}
+    </p>
+{% endblock %}

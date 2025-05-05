@@ -21,6 +21,9 @@ migrate:
 fixtload:
 	@${CONSOLE} doctrine:fixtures:load
 
+crud:
+	@${CONSOLE} make:crud
+
 # В файл local.mk можно добавлять дополнительные make-команды,
 # которые требуются лично вам, но не нужны на проекте в целом
 -include local.mk
