@@ -44,8 +44,13 @@ final class LessonController extends AbstractController
             ], Response::HTTP_SEE_OTHER);
         }
 
+        if (!empty($courseId)) {
+            $course = $entityManager->getRepository(Course::class)->find($courseId);
+        }
+
         return $this->render('lesson/new.html.twig', [
             'lesson' => $lesson,
+            'course' => $course ?? null,
             'form' => $form,
         ]);
     }
@@ -68,7 +73,9 @@ final class LessonController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_lesson_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_lesson_show', [
+                'id' => $lesson->getId(),
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('lesson/edit.html.twig', [

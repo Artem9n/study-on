@@ -2,9 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Course;
 use App\Entity\Lesson;
 use App\Form\DataTransformer\CourseToIdTransformer;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -32,6 +34,11 @@ class LessonType extends AbstractType
                     'data' => $options['course_id'],
                 ])
                 ->get('course')->addModelTransformer(new CourseToIdTransformer($this->entityManager));
+        } else {
+            $builder->add('course', EntityType::class, [
+                'class' => Course::class,
+                'choice_label' => 'name',
+            ]);
         }
     }
 

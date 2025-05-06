@@ -3,20 +3,25 @@
 {% block title %}Курсы{% endblock %}
 
 {% block body %}
-    <h1>Курсы</h1>
+    <h1 class="mb-4">Курсы</h1>
 
     {% for course in courses %}
-        <h2>
-            <a href="{{ path('app_course_show', {'id': course.id}) }}">{{ course.name }}</a>
-        </h2>
-        <p>
-            {{ course.description }}
-        </p>
-    {% else %}
-        <div>
-            Нет курсов
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ course.name }}</h5>
+                    <p class="card-text">{{ course.description }}</p>
+                    <a class="card-link" style="text-decoration: none" href="{{ path('app_course_show', {'id': course.id}) }}">Пройти</a>
+                </div>
+            </div>
         </div>
     {% endfor %}
 
-    <a href="{{ path('app_course_new') }}">Добавить новый курс</a>
+    <div>
+        <hr>
+    </div>
+
+    <div>
+        <a class="btn btn-outline-secondary" role="button" href="{{ path('app_course_new') }}">Новый курс</a>
+    </div>
 {% endblock %}
