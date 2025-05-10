@@ -5,9 +5,10 @@ namespace App\DataFixtures;
 use App\Entity\Course;
 use App\Entity\Lesson;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class CourseFixture extends Fixture
+class DevFixture extends Fixture implements FixtureGroupInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -113,5 +114,10 @@ class CourseFixture extends Fixture
 
         // Фиксируем изменения в базе данных
         $manager->flush();
+    }
+
+    public static function getGroups(): array
+    {
+        return ['dev'];
     }
 }

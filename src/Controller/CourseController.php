@@ -80,6 +80,10 @@ final class CourseController extends AbstractController
     public function delete(Request $request, Course $course, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$course->getId(), $request->getPayload()->getString('_token'))) {
+            foreach ($course->getLessons() as $lesson) {
+                $entityManager->remove($lesson);
+            }
+
             $entityManager->remove($course);
             $entityManager->flush();
         }

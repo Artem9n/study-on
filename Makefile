@@ -30,6 +30,12 @@ encore_dev:
 encore_prod:
 	@${COMPOSE} run --rm node yarn encore production
 
+phpunit:
+	@${PHP} bin/phpunit
+
+require:
+	@${COMPOSER} require $2
+
 # В файл local.mk можно добавлять дополнительные make-команды,
 # которые требуются лично вам, но не нужны на проекте в целом
 -include local.mk
